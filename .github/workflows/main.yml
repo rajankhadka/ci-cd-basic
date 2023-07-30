@@ -1,0 +1,33 @@
+name: Sample Workflow
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  job1:
+    runs-on: ubuntu:22.04
+    steps:
+      - name: checkout current code using public action
+        uses: actions/checkout@v2
+      - name: get the list of files in our current directory and its sub-directory
+        run:
+          pwd
+          ls -alR
+  
+  job2:
+    runs-on: ubuntu:22.04
+    needs: [ job1 ]
+    steps:
+      - name: print current files
+        run:
+          pwd
+          ls -alR
+  
+  job3:
+    runs-on: ubuntu:22.04
+    steps:
+      - name: print env variables
+        run: echo $VAR1
+        env:
+          VAR1: thank you
